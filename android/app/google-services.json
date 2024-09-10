@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "140985066323",
+    "project_id": "advenza-625e6",
+    "storage_bucket": "advenza-625e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140985066323:android:b0f9fcb85589da151bf7a6",
+        "android_client_info": {
+          "package_name": "com.example.advenza_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMbRmNJA3t8L42GUh7tLZ25WjHlUqT2M8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
