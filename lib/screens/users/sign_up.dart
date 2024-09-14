@@ -64,6 +64,7 @@ class SignUpPage extends StatelessWidget {
                   labelText: 'Email ID',
                   border: OutlineInputBorder(),
                 ),
+                keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 20),
               TextField(
@@ -119,6 +120,7 @@ class SignUpPage extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Passwords do not match!'),
+          backgroundColor: Colors.red, // Error background color
           duration: Duration(seconds: 3),
         ),
       );
@@ -131,24 +133,43 @@ class SignUpPage extends StatelessWidget {
         email: _emailController.text.trim(),
         password: _passwordController.text,
       );
+
       final User? user = userCredential.user;
       if (user != null) {
-        // Sign-up successful, navigate to the dashboard or other page
-        Navigator.pushReplacementNamed(context, '/dashboard');
+        // Sign-up successful, clear fields and navigate to 'Get Started' page
+        _nameController.clear();
+        _emailController.clear();
+        _passwordController.clear();
+        _confirmPasswordController.clear();
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Sign-up successful!'),
+            backgroundColor: Colors.green, // Success background color
+            duration: Duration(seconds: 3),
+          ),
+        );
+
+        Future.delayed(const Duration(seconds: 3), () {
+          Navigator.pushReplacementNamed(
+              context, '/getstarted'); // Adjust route name as needed
+        });
       } else {
         // Handle sign-up failure
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Sign-up failed. Please try again.'),
+            backgroundColor: Colors.red, // Error background color
             duration: Duration(seconds: 3),
           ),
         );
       }
-    } catch (error) {
+    } catch (e) {
       // Handle sign-up errors (e.g., weak password, email already in use)
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Error: ${error.toString()}'),
+          content: Text('Error: ${e.toString()}'),
+          backgroundColor: Colors.red, // Error background color
           duration: const Duration(seconds: 3),
         ),
       );

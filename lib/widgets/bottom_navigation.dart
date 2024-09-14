@@ -22,7 +22,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
             Navigator.pushReplacementNamed(context, '/wishlist');
             break;
           case 3:
-            Navigator.pushReplacementNamed(context, '/alerts');
+            Navigator.pushReplacementNamed(context, '/inbox');
             break;
         }
       },
@@ -37,11 +37,11 @@ class CustomBottomNavigationBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.monitor_heart_rounded),
-          label: 'Wishlist',
+          label: 'Tickets',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.notifications),
-          label: 'Notification',
+          label: 'Inbox',
         ),
       ],
       selectedItemColor: Colors.black, // Color for the selected item

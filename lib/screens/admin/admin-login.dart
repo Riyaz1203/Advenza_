@@ -1,17 +1,36 @@
-import 'package:advenza_project/screens/home_page.dart';
+import 'package:advenza_project/screens/admin/admin-home.dart';
+import 'package:advenza_project/screens/users/home_page.dart';
+import 'package:advenza_project/screens/theme/theme-login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginPage extends StatelessWidget {
+class AdminLogin extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  LoginPage({super.key});
+  AdminLogin({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Admin Login',
+          style: TextStyle(color: Colors.white),
+        ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        backgroundColor:
+            const Color.fromARGB(255, 42, 88, 42), // Match your theme color
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -35,6 +54,15 @@ class LoginPage extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.black54,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 30),
+              const Text(
+                'Admin Login',
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Color.fromARGB(255, 42, 88, 42),
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -73,46 +101,13 @@ class LoginPage extends StatelessWidget {
                   _signInWithEmailAndPassword(context);
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 42, 88, 42),
+                  backgroundColor: const Color.fromARGB(255, 42, 88, 42),
                   padding: const EdgeInsets.symmetric(vertical: 15),
                 ),
                 child: const Text('LOG IN',
                     style: TextStyle(fontSize: 16, color: Colors.white)),
               ),
               const SizedBox(height: 20),
-              GestureDetector(
-                onTap: () {
-                  // Navigation to Sign Up Page
-                },
-                child: const Center(
-                  child: Text('Don’t Have an Account? Create One',
-                      style: TextStyle(color: Color.fromARGB(255, 42, 88, 42))),
-                ),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  // Park Owner login logic
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 42, 88, 42),
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                ),
-                child: const Text('Park Owner',
-                    style: TextStyle(fontSize: 16, color: Colors.white)),
-              ),
-              const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  // Admin login logic
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 42, 88, 42),
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                ),
-                child: const Text('Admin',
-                    style: TextStyle(fontSize: 16, color: Colors.white)),
-              ),
             ],
           ),
         ),
@@ -145,8 +140,7 @@ class LoginPage extends StatelessWidget {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                   HomeScreen()), // Replace with your Homepage
+              builder: (context) => const AdminHome()), // Replace with your Homepage
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
