@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../../widgets/navbar.dart';
 import 'profile_page.dart';
 
 class ExplorePage extends StatefulWidget {
@@ -57,7 +58,14 @@ class _ExplorePageState extends State<ExplorePage> {
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: const Icon(Icons.menu, color: Colors.black),
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: () {
@@ -75,6 +83,9 @@ class _ExplorePageState extends State<ExplorePage> {
           ),
           const SizedBox(width: 10),
         ],
+      ),
+      drawer: Drawer(
+        child: NavBar(), // Use your custom NavBar widget inside the Drawer
       ),
       body: SingleChildScrollView(
         child: Column(

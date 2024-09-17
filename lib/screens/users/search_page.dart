@@ -1,4 +1,6 @@
 import 'package:advenza_project/screens/users/profile_page.dart';
+import 'package:advenza_project/screens/users/view-barcode-ticket.dart';
+import 'package:advenza_project/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/bottom_navigation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -63,7 +65,14 @@ class _SearchPageState extends State<SearchPage> {
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: const Icon(Icons.menu, color: Colors.black),
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: () {
@@ -81,6 +90,9 @@ class _SearchPageState extends State<SearchPage> {
           ),
           const SizedBox(width: 10),
         ],
+      ),
+      drawer: Drawer(
+        child: NavBar(), // Use your custom NavBar widget inside the Drawer
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -151,7 +163,11 @@ class _SearchPageState extends State<SearchPage> {
                       // Button to book or take action
                       ElevatedButton(
                         onPressed: () {
-                          // Add your button action here
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TicketsDetailPage()),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor:

@@ -91,7 +91,8 @@ class _AddThemeParkScreenState extends State<AddThemeParkScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Theme Park', style: TextStyle(color: Colors.white)),
+        title:
+            const Text('Add Theme Park', style: TextStyle(color: Colors.white)),
         backgroundColor: AppTheme.primaryColor,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),

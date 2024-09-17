@@ -1,10 +1,11 @@
+import 'package:advenza_project/widgets/approve-cards.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 import '../../widgets/view-rides.dart';
 
-class ViewThemeScreen extends StatelessWidget {
-  const ViewThemeScreen({super.key});
+class ApproveThemeScreen extends StatelessWidget {
+  const ApproveThemeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class ViewThemeScreen extends StatelessWidget {
               final String imageUrl =
                   data['image-link-1'] ?? 'https://via.placeholder.com/200';
 
-              return ApproveCard(
+              return ApproveCards(
                 parkName: data['park_name'] ?? 'Unknown Park',
                 location: data['park-location'] ?? 'Unknown Location',
                 price: price,

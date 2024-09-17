@@ -40,7 +40,7 @@ class ViewRidesScreen extends StatelessWidget {
               final String imageUrl =
                   data['image-link-1'] ?? 'https://via.placeholder.com/200';
 
-              return ThemeCard(
+              return ApproveCard(
                 parkName: data['ride_name'] ?? 'Unknown Park',
                 location: data['ride-location'] ?? 'Unknown Location',
                 price: price,

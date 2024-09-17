@@ -1,6 +1,8 @@
-import 'package:advenza_project/screens/users/profile_page.dart';
-import 'package:advenza_project/widgets/bottom_navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:advenza_project/widgets/navbar.dart'; // Import the NavBar widget
+import 'package:advenza_project/screens/users/profile_page.dart';
+
+import '../../widgets/bottom_navigation.dart'; // Profile page
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -8,11 +10,13 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('ADVENZA'),
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {
-            // Add your menu action here
-          },
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+          ),
         ),
         actions: [
           IconButton(
@@ -20,17 +24,20 @@ class HomeScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        const ProfilePage()), // Navigate to ProfilePage
+                  builder: (context) => const ProfilePage(),
+                ),
               );
             },
             icon: const CircleAvatar(
-              backgroundImage: AssetImage(
-                  'assests/pofile.png'), // Make sure the path is correct
+              backgroundImage:
+                  AssetImage('assests/pofile.png'), // Correct asset path
             ),
           ),
           const SizedBox(width: 10),
         ],
+      ),
+      drawer: Drawer(
+        child: NavBar(), // Use your custom NavBar widget inside the Drawer
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -38,14 +45,12 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Welcome to Advenza, your gateway to a world of fun and adventure at Amusement Park . Discover a place where thrills, entertainment, and unforgettable memories await. Whether youre here for the heart-pounding rides, family-friendly attractions, or a day full of excitement, we ve got something for everyone. Start exploring now and make the most of your visit!',
+              'Welcome to Advenza, your gateway to a world of fun and adventure at Amusement Park. Discover a place where thrills, entertainment, and unforgettable memories await. Whether you\'re here for the heart-pounding rides, family-friendly attractions, or a day full of excitement, we\'ve got something for everyone. Start exploring now and make the most of your visit!',
               style: TextStyle(fontSize: 16.0),
             ),
             const SizedBox(height: 20),
-            // Featured Attractions Section
             _buildFeaturedAttractionsSection(),
             const SizedBox(height: 20),
-            // Promotions Section
             _buildPromotionsSection(),
           ],
         ),
@@ -73,7 +78,7 @@ class HomeScreen extends StatelessWidget {
           Row(
             children: [
               Image.asset(
-                'assests/map.png', // Corrected to Image.asset for local image
+                'assests/map.png', // Corrected to 'assets'
                 width: 80,
                 height: 80,
               ),
@@ -110,7 +115,7 @@ class HomeScreen extends StatelessWidget {
           Row(
             children: [
               Image.asset(
-                'assests/offer.png', // Corrected to Image.asset for local image
+                'assests/offer.png', // Corrected asset path
                 width: 80,
                 height: 80,
               ),

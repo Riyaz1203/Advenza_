@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         '/inbox': (context) => const InboxPage(),
         '/getstarted': (context) => const GetStartedPage(),
       },
-      home: const GetStartedPage(),
+      home: GetStartedPage(),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:advenza_project/screens/users/explore_page.dart';
+import 'package:advenza_project/screens/users/pre-payment.dart';
 import 'package:flutter/material.dart';
 import 'package:advenza_project/theme/theme.dart';
 
@@ -107,8 +108,7 @@ class ConfirmTicketsScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const ExplorePage()),
+                    MaterialPageRoute(builder: (context) => PaymentPage()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -117,7 +117,7 @@ class ConfirmTicketsScreen extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 16, horizontal: 80),
                 ),
                 child:
-                    Text('Back to Home', style: TextStyle(color: Colors.white)),
+                    Text('Make Payment', style: TextStyle(color: Colors.white)),
               ),
             ],
           ),

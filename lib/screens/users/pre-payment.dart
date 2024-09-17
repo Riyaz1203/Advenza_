@@ -1,3 +1,4 @@
+import 'package:advenza_project/screens/users/payment-succesfull.dart';
 import 'package:flutter/material.dart';
 
 class PaymentPage extends StatelessWidget {
@@ -117,7 +118,13 @@ class PaymentPage extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => TicketsBookedPage()),
+                  );
+                },
                 child: Text(
                   "Proceed to Pay",
                   style: TextStyle(color: Colors.white),

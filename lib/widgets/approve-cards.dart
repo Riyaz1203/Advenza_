@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import '../theme/theme.dart';
 
-class ApproveCard extends StatelessWidget {
+class ApproveCards extends StatelessWidget {
   final String parkName;
   final String location;
   final double price;
   final String imageUrl; // Add image URL field
 
-  ApproveCard({
+  ApproveCards({
     required this.parkName,
     required this.location,
     required this.price,
@@ -53,8 +53,8 @@ class ApproveCard extends StatelessWidget {
                         padding:
                             EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       ),
-                      child:
-                          Text('Edit', style: TextStyle(color: Colors.white)),
+                      child: Text('Approve',
+                          style: TextStyle(color: Colors.white)),
                     ),
                     SizedBox(width: 10),
                     ElevatedButton(
@@ -66,8 +66,8 @@ class ApproveCard extends StatelessWidget {
                         padding:
                             EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       ),
-                      child:
-                          Text('Delete', style: TextStyle(color: Colors.white)),
+                      child: Text('Decline',
+                          style: TextStyle(color: Colors.white)),
                     ),
                   ],
                 ),

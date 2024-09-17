@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:advenza_project/screens/users/profile_page.dart';
 import 'package:advenza_project/widgets/bottom_navigation.dart';
 
+import '../../widgets/navbar.dart';
+
 class InboxPage extends StatefulWidget {
   const InboxPage({super.key});
 
@@ -26,12 +28,13 @@ class _InboxPageState extends State<InboxPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.menu,
-            color: Colors.black,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
           ),
-          onPressed: () {},
         ),
         actions: [
           IconButton(
@@ -50,6 +53,9 @@ class _InboxPageState extends State<InboxPage> {
           ),
           const SizedBox(width: 10),
         ],
+      ),
+      drawer: Drawer(
+        child: NavBar(), // Use your custom NavBar widget inside the Drawer
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _notificationsStream,

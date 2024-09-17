@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 import '../../widgets/view-rides.dart';
 
-class ViewThemeScreen extends StatelessWidget {
-  const ViewThemeScreen({super.key});
+class ApproveRidesScreen extends StatelessWidget {
+  const ApproveRidesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('View Theme Park',
-            style: TextStyle(color: Colors.white)),
+        title: const Text('View Rides', style: TextStyle(color: Colors.white)),
         backgroundColor: AppTheme.primaryColor,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -22,7 +21,7 @@ class ViewThemeScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: StreamBuilder<QuerySnapshot>(
           stream:
-              FirebaseFirestore.instance.collection('theme_park').snapshots(),
+              FirebaseFirestore.instance.collection('theme_rides').snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -42,8 +41,8 @@ class ViewThemeScreen extends StatelessWidget {
                   data['image-link-1'] ?? 'https://via.placeholder.com/200';
 
               return ApproveCard(
-                parkName: data['park_name'] ?? 'Unknown Park',
-                location: data['park-location'] ?? 'Unknown Location',
+                parkName: data['ride_name'] ?? 'Unknown Park',
+                location: data['ride-location'] ?? 'Unknown Location',
                 price: price,
                 imageUrl: imageUrl, // Pass image URL to RideCard
               );
