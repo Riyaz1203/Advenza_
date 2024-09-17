@@ -1,7 +1,6 @@
 import 'package:advenza_project/screens/admin/view-theme.dart';
 import 'package:advenza_project/screens/users/Notification_inbox.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart'; // FirebaseAuth for sign out
 import 'package:advenza_project/screens/users/profile_page.dart';
 
 import '../auth/api.dart';

@@ -1,10 +1,6 @@
 import 'package:advenza_project/screens/admin/add_notifiction.dart';
-import 'package:advenza_project/screens/admin/add_rides.dart';
-import 'package:advenza_project/screens/admin/add_theme_park.dart';
 import 'package:advenza_project/screens/admin/approve-ride.dart';
 import 'package:advenza_project/screens/admin/approve-theme.dart';
-import 'package:advenza_project/screens/admin/view-rides.dart';
-import 'package:advenza_project/screens/admin/view-theme.dart';
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 

@@ -1,4 +1,3 @@
-import 'package:advenza_project/screens/users/explore_page.dart';
 import 'package:advenza_project/screens/users/pre-payment.dart';
 import 'package:flutter/material.dart';
 import 'package:advenza_project/theme/theme.dart';

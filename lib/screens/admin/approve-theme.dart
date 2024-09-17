@@ -2,7 +2,6 @@ import 'package:advenza_project/widgets/approve-cards.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
-import '../../widgets/view-rides.dart';
 
 class ApproveThemeScreen extends StatelessWidget {
   const ApproveThemeScreen({super.key});
