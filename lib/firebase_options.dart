@@ -17,24 +17,15 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -59,4 +50,32 @@ class DefaultFirebaseOptions {
     projectId: 'advenza-625e6',
     storageBucket: 'advenza-625e6.appspot.com',
   );
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyAHNk8BqTFop8Aq3hGXK6ulLoCC6T4zfow',
+    appId: '1:140985066323:web:4bb33e002918ab111bf7a6',
+    messagingSenderId: '140985066323',
+    projectId: 'advenza-625e6',
+    authDomain: 'advenza-625e6.firebaseapp.com',
+    storageBucket: 'advenza-625e6.appspot.com',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyC_gxSt7eKlFejPGPMWAKgCla7tCTKAUbc',
+    appId: '1:140985066323:ios:889d4e6947f3be8e1bf7a6',
+    messagingSenderId: '140985066323',
+    projectId: 'advenza-625e6',
+    storageBucket: 'advenza-625e6.appspot.com',
+    iosBundleId: 'com.example.advenzaProject',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyC_gxSt7eKlFejPGPMWAKgCla7tCTKAUbc',
+    appId: '1:140985066323:ios:889d4e6947f3be8e1bf7a6',
+    messagingSenderId: '140985066323',
+    projectId: 'advenza-625e6',
+    storageBucket: 'advenza-625e6.appspot.com',
+    iosBundleId: 'com.example.advenzaProject',
+  );
+
 }
