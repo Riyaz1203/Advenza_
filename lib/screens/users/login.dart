@@ -1,10 +1,11 @@
 import 'package:advenza_project/screens/admin/admin-login.dart';
 import 'package:advenza_project/screens/theme/theme-login.dart';
+import 'package:advenza_project/screens/users/home_page.dart';
 import 'package:advenza_project/screens/users/new-profile-page.dart';
+import 'package:advenza_project/screens/users/sign_up.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:advenza_project/screens/users/home_page.dart'; // Import your HomeScreen
 
 class LoginPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -64,7 +65,7 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
-                  // Forgot password logic here
+                  _resetPassword(context); // Call the reset password function
                 },
                 child: const Align(
                   alignment: Alignment.centerRight,
@@ -87,7 +88,10 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
-                  // Navigation to Sign Up Page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUpPage()),
+                  );
                 },
                 child: const Center(
                   child: Text('Don’t Have an Account? Create One',
@@ -158,7 +162,6 @@ class LoginPage extends StatelessWidget {
             await _firestore.collection('users').doc(user.uid).get();
 
         if (userDoc.exists) {
-          // Document exists, navigate to the home screen
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -166,7 +169,6 @@ class LoginPage extends StatelessWidget {
             ),
           );
         } else {
-          // Document does not exist, navigate to the profile setup page
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -191,6 +193,51 @@ class LoginPage extends StatelessWidget {
         message = 'Incorrect password.';
       } else {
         message = 'Sign in failed. Please try again later.';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content:
+              Text('An unexpected error occurred. Please try again later.'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    }
+  }
+
+  Future<void> _resetPassword(BuildContext context) async {
+    final email = _emailController.text.trim();
+
+    if (email.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please enter your email address.'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+      return;
+    }
+
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Password reset email has been sent.'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      String message;
+      if (e.code == 'user-not-found') {
+        message = 'No user found with this email.';
+      } else {
+        message = 'Failed to send password reset email. Please try again.';
       }
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
