@@ -23,7 +23,6 @@ class PaymentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Generate random values
-    int numberOfTickets = bookingData['number_of_tickets'] ?? 3;
     String dateOfVisit = bookingData['date_of_visit'] ??
         "Monday ${Random().nextInt(30) + 1}th Aug 2024";
     String ticketType = bookingData['ticket_type'] ??
