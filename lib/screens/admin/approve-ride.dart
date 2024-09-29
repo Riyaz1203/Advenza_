@@ -44,7 +44,8 @@ class ApproveRidesScreen extends StatelessWidget {
                 parkName: data['ride_name'] ?? 'Unknown Park',
                 location: data['ride-location'] ?? 'Unknown Location',
                 price: price,
-                imageUrl: imageUrl, // Pass image URL to RideCard
+                imageUrl: imageUrl, docId: '', description: '', imageLink1: '', imageLink2: '', rating: 1
+                , // Pass image URL to RideCard
               );
             }).toList();
 

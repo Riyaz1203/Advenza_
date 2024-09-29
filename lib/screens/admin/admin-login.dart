@@ -122,6 +122,7 @@ class AdminLogin extends StatelessWidget {
         const SnackBar(
           content: Text('Please enter both email and password.'),
           duration: Duration(seconds: 3),
+          backgroundColor: Colors.red, // Custom background color
         ),
       );
       return;
@@ -146,6 +147,7 @@ class AdminLogin extends StatelessWidget {
           const SnackBar(
             content: Text('Sign in failed. Please check your credentials.'),
             duration: Duration(seconds: 3),
+            backgroundColor: Colors.red, // Custom background color
           ),
         );
       }
@@ -162,6 +164,7 @@ class AdminLogin extends StatelessWidget {
         SnackBar(
           content: Text(message),
           duration: const Duration(seconds: 3),
+          backgroundColor: Colors.red, // Custom background color
         ),
       );
     } catch (error) {
@@ -170,6 +173,7 @@ class AdminLogin extends StatelessWidget {
           content:
               Text('An unexpected error occurred. Please try again later.'),
           duration: Duration(seconds: 3),
+          backgroundColor: Colors.red, // Custom background color
         ),
       );
     }

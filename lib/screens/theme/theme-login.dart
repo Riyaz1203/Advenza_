@@ -26,8 +26,7 @@ class ThemeLogin extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        backgroundColor:
-            const Color.fromARGB(255, 42, 88, 42), // Match your theme color
+        backgroundColor: const Color.fromARGB(255, 42, 88, 42),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -89,8 +88,10 @@ class ThemeLogin extends StatelessWidget {
                 },
                 child: const Align(
                   alignment: Alignment.centerRight,
-                  child: Text('Forgot your password?',
-                      style: TextStyle(color: Color.fromARGB(255, 42, 88, 42))),
+                  child: Text(
+                    'Forgot your password?',
+                    style: TextStyle(color: Color.fromARGB(255, 42, 88, 42)),
+                  ),
                 ),
               ),
               const SizedBox(height: 40),
@@ -99,11 +100,13 @@ class ThemeLogin extends StatelessWidget {
                   _signInWithEmailAndPassword(context);
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 42, 88, 42),
+                  backgroundColor: const Color.fromARGB(255, 42, 88, 42),
                   padding: const EdgeInsets.symmetric(vertical: 15),
                 ),
-                child: const Text('LOG IN',
-                    style: TextStyle(fontSize: 16, color: Colors.white)),
+                child: const Text(
+                  'LOG IN',
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
               ),
               const SizedBox(height: 20),
             ],
@@ -120,6 +123,7 @@ class ThemeLogin extends StatelessWidget {
     if (email.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
+          backgroundColor: Color.fromARGB(255, 42, 88, 42),
           content: Text('Please enter both email and password.'),
           duration: Duration(seconds: 3),
         ),
@@ -135,14 +139,24 @@ class ThemeLogin extends StatelessWidget {
       );
       final User? user = userCredential.user;
       if (user != null) {
+        // Show success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Color.fromARGB(255, 42, 88, 42),
+            content: Text('Login successful!'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+
+        // Navigate to AdminHome
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(
-              builder: (context) => AdminHome()), // Replace with your Homepage
+          MaterialPageRoute(builder: (context) => AdminHome()),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
+            backgroundColor: Color.fromARGB(255, 42, 88, 42),
             content: Text('Sign in failed. Please check your credentials.'),
             duration: Duration(seconds: 3),
           ),
@@ -159,6 +173,7 @@ class ThemeLogin extends StatelessWidget {
       }
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          backgroundColor: Color.fromARGB(255, 42, 88, 42),
           content: Text(message),
           duration: const Duration(seconds: 3),
         ),
@@ -166,6 +181,7 @@ class ThemeLogin extends StatelessWidget {
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
+          backgroundColor: Color.fromARGB(255, 42, 88, 42),
           content:
               Text('An unexpected error occurred. Please try again later.'),
           duration: Duration(seconds: 3),

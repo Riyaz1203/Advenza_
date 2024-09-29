@@ -37,7 +37,7 @@ class ThemeCard extends StatelessWidget {
                 SizedBox(height: 8),
                 Text(location, style: AppTheme.bodyTextStyle),
                 SizedBox(height: 10),
-                Text('\$$price per ticket', style: AppTheme.bodyTextStyle),
+                Text('\Rs:$price per ticket', style: AppTheme.bodyTextStyle),
                 SizedBox(height: 20),
                 // Edit and Delete buttons
                 Row(

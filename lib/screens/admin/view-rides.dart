@@ -1,3 +1,4 @@
+import 'package:advenza_project/screens/admin/add_rides.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
@@ -28,7 +29,7 @@ class ViewRidesScreen extends StatelessWidget {
             }
 
             if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-              return const Center(child: Text('No rides available.'));
+              return _buildNoRidesAvailable(context);
             }
 
             final themeParks = snapshot.data!.docs.map((doc) {
@@ -44,7 +45,8 @@ class ViewRidesScreen extends StatelessWidget {
                 parkName: data['ride_name'] ?? 'Unknown Park',
                 location: data['ride-location'] ?? 'Unknown Location',
                 price: price,
-                imageUrl: imageUrl, // Pass image URL to RideCard
+                imageUrl: imageUrl, docId: '', description: '', imageLink1: '',
+                imageLink2: '', rating: 1, // Pass image URL to RideCard
               );
             }).toList();
 
@@ -53,6 +55,48 @@ class ViewRidesScreen extends StatelessWidget {
             );
           },
         ),
+      ),
+    );
+  }
+
+  // Widget for displaying when no rides are available
+  Widget _buildNoRidesAvailable(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'No rides available.',
+            style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: AppTheme.primaryColor),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 20),
+          Text(
+            'It seems there are currently no rides. Would you like to add a new ride?',
+            style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        const AddRidesPage()), // Navigate to the Add Ride page
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppTheme.primaryColor,
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+            ),
+            child:
+                const Text('Add Ride', style: TextStyle(color: Colors.white)),
+          ),
+        ],
       ),
     );
   }

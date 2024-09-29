@@ -2,6 +2,7 @@ import 'package:advenza_project/screens/users/ticket-booked.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 
 class BookTicketsPage extends StatefulWidget {
   final Map<String, dynamic> parkData;
@@ -25,13 +26,30 @@ class _BookTicketsPageState extends State<BookTicketsPage> {
       TextEditingController();
   String _selectedTicketType = "None";
 
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime now = DateTime.now();
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: now,
+      firstDate: now,
+      lastDate: DateTime(now.year + 5),
+    );
+
+    if (pickedDate != null) {
+      setState(() {
+        _dateOfVisitController.text =
+            DateFormat('dd-MM-yyyy').format(pickedDate);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Book Tickets"),
+        title: const Text("Book Tickets"),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -41,13 +59,11 @@ class _BookTicketsPageState extends State<BookTicketsPage> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment
-                .stretch, // Make children stretch to full width
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Display the park image at the top
               Container(
                 width: double.infinity,
-                height: 200, // Set a fixed height for the image
+                height: 200,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   image: DecorationImage(
@@ -56,29 +72,29 @@ class _BookTicketsPageState extends State<BookTicketsPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Center(
                 child: Text(
                   widget.parkData['park_name'] ?? 'No Name',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: const Color.fromARGB(255, 42, 88, 42),
+                    color: Color.fromARGB(255, 42, 88, 42),
                   ),
                 ),
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               Form(
                 key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text(
+                    const Text(
                       "Personal Information",
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     TextFormField(
                       controller: _fullNameController,
                       decoration: InputDecoration(
@@ -91,7 +107,7 @@ class _BookTicketsPageState extends State<BookTicketsPage> {
                           ? 'Please enter your full name'
                           : null,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     TextFormField(
                       controller: _emailController,
                       decoration: InputDecoration(
@@ -104,39 +120,53 @@ class _BookTicketsPageState extends State<BookTicketsPage> {
                           ? 'Please enter your email address'
                           : null,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     TextFormField(
                       controller: _phoneController,
+                      keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                         labelText: "Phone Number",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      validator: (value) => value?.isEmpty ?? true
-                          ? 'Please enter your phone number'
-                          : null,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your phone number';
+                        } else if (!RegExp(r'^\d{10}$').hasMatch(value)) {
+                          return 'Phone number must be exactly 10 digits';
+                        }
+                        return null;
+                      },
                     ),
-                    SizedBox(height: 20),
-                    Text(
+                    const SizedBox(height: 20),
+                    const Text(
                       "Ticket Information",
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 10),
-                    TextFormField(
-                      controller: _dateOfVisitController,
-                      decoration: InputDecoration(
-                        labelText: "Date of Visit",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
+                    const SizedBox(height: 10),
+                    GestureDetector(
+                      onTap: () => _selectDate(context),
+                      child: AbsorbPointer(
+                        child: TextFormField(
+                          controller: _dateOfVisitController,
+                          decoration: InputDecoration(
+                            labelText: "Date of Visit",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return 'Please enter the date of visit';
+                            }
+                            return null;
+                          },
                         ),
                       ),
-                      validator: (value) => value?.isEmpty ?? true
-                          ? 'Please enter the date of visit'
-                          : null,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     TextFormField(
                       controller: _numberOfAdultsController,
                       decoration: InputDecoration(
@@ -149,7 +179,7 @@ class _BookTicketsPageState extends State<BookTicketsPage> {
                           ? 'Please enter the number of adults'
                           : null,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     TextFormField(
                       controller: _numberOfChildrenController,
                       decoration: InputDecoration(
@@ -162,7 +192,7 @@ class _BookTicketsPageState extends State<BookTicketsPage> {
                           ? 'Please enter the number of children'
                           : null,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     DropdownButtonFormField<String>(
                       value: _selectedTicketType,
                       decoration: InputDecoration(
@@ -171,7 +201,7 @@ class _BookTicketsPageState extends State<BookTicketsPage> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      items: [
+                      items: const [
                         DropdownMenuItem(value: "None", child: Text("None")),
                         DropdownMenuItem(
                             value: "Single-day", child: Text("Single-day")),
@@ -184,9 +214,9 @@ class _BookTicketsPageState extends State<BookTicketsPage> {
                         });
                       },
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     SizedBox(
-                      width: double.infinity, // Make the button full-width
+                      width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState?.validate() ?? false) {
@@ -215,31 +245,53 @@ class _BookTicketsPageState extends State<BookTicketsPage> {
                                   'ticket_type': _selectedTicketType,
                                 };
 
+                                // Save the booking data to Firestore
                                 await FirebaseFirestore.instance
                                     .collection('booked-tickets')
                                     .doc(user.uid)
                                     .set(bookingDetails);
 
-                                // Navigate to the success page with the booking data
+                                // Clear all form fields
+                                _fullNameController.clear();
+                                _emailController.clear();
+                                _phoneController.clear();
+                                _dateOfVisitController.clear();
+                                _numberOfAdultsController.clear();
+                                _numberOfChildrenController.clear();
+                                setState(() {
+                                  _selectedTicketType = "None";
+                                });
+
+                                // Navigate to ConfirmTicketsScreen
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => ConfirmTicketsScreen(
-                                        bookingData: bookingDetails),
+                                      bookingData: bookingDetails,
+                                    ),
                                   ),
                                 );
                               } catch (e) {
                                 print('Error booking tickets: $e');
                               }
                             }
+                          } else {
+                            // Show a SnackBar if validation fails
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                    'Please correct the errors in the form'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
                           }
                         },
-                        child: Text(
+                        child: const Text(
                           "Confirm",
                           style: TextStyle(color: Colors.white),
                         ),
                         style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(vertical: 16),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
                           backgroundColor:
                               const Color.fromARGB(255, 42, 88, 42),
                           shape: RoundedRectangleBorder(

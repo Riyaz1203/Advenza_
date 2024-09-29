@@ -27,30 +27,7 @@ class AdminHomeMain extends StatelessWidget {
             const SizedBox(
               height: 100,
             ),
-            Container(
-              decoration: BoxDecoration(
-                color: AppTheme.whiteColor,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text('Total Revenue', style: AppTheme.subHeadingStyle),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('\$52,000\nToday\'s Tickets',
-                          style: AppTheme.headingStyle),
-                      Text('250+\nNew Theme Park',
-                          style: AppTheme.headingStyle),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 100),
             Text('Quick Access Links', style: AppTheme.subHeadingStyle),
             const SizedBox(height: 10),
             Expanded(

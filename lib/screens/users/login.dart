@@ -161,6 +161,15 @@ class LoginPage extends StatelessWidget {
         final userDoc =
             await _firestore.collection('users').doc(user.uid).get();
 
+        // Show success snackbar
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Color.fromARGB(255, 42, 88, 42),
+            content: Text('Login successful!'),
+            duration: Duration(seconds: 3),
+          ),
+        );
+
         if (userDoc.exists) {
           Navigator.pushReplacement(
             context,
@@ -180,6 +189,7 @@ class LoginPage extends StatelessWidget {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
+            backgroundColor: Color.fromARGB(255, 42, 88, 42),
             content: Text('Sign in failed. Please check your credentials.'),
             duration: Duration(seconds: 3),
           ),
@@ -196,6 +206,7 @@ class LoginPage extends StatelessWidget {
       }
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          backgroundColor: Color.fromARGB(255, 42, 88, 42),
           content: Text(message),
           duration: const Duration(seconds: 3),
         ),
@@ -203,6 +214,7 @@ class LoginPage extends StatelessWidget {
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
+          backgroundColor: Color.fromARGB(255, 42, 88, 42),
           content:
               Text('An unexpected error occurred. Please try again later.'),
           duration: Duration(seconds: 3),
@@ -217,6 +229,7 @@ class LoginPage extends StatelessWidget {
     if (email.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
+          backgroundColor: Color.fromARGB(255, 42, 88, 42),
           content: Text('Please enter your email address.'),
           duration: Duration(seconds: 3),
         ),
@@ -228,6 +241,7 @@ class LoginPage extends StatelessWidget {
       await _auth.sendPasswordResetEmail(email: email);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
+          backgroundColor: Color.fromARGB(255, 42, 88, 42),
           content: Text('Password reset email has been sent.'),
           duration: Duration(seconds: 3),
         ),
@@ -241,6 +255,7 @@ class LoginPage extends StatelessWidget {
       }
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          backgroundColor: Color.fromARGB(255, 42, 88, 42),
           content: Text(message),
           duration: const Duration(seconds: 3),
         ),
@@ -248,6 +263,7 @@ class LoginPage extends StatelessWidget {
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
+          backgroundColor: Color.fromARGB(255, 42, 88, 42),
           content:
               Text('An unexpected error occurred. Please try again later.'),
           duration: Duration(seconds: 3),

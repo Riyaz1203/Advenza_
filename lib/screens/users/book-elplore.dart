@@ -87,7 +87,9 @@ class BookExplorePage extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            parkData['price'] ?? '\$0',
+                            (parkData['price'] != null
+                                ? '\$${parkData['price'].toString()}'
+                                : '\$0'), // Ensure it's a String
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -106,7 +108,9 @@ class BookExplorePage extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            parkData['rating'] ?? '0/10',
+                            (parkData['rating'] != null
+                                ? '${parkData['rating'].toString()}/10'
+                                : '0/10'), // Ensure it's a String
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -125,7 +129,9 @@ class BookExplorePage extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            parkData['duration'] ?? '0 hours',
+                            (parkData['duration'] != null
+                                ? '${parkData['duration'].toString()} hours'
+                                : '0 hours'), // Ensure it's a String
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,

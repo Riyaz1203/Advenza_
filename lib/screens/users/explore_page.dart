@@ -33,7 +33,7 @@ class _ExplorePageState extends State<ExplorePage> {
   Future<void> _getThemeParks() async {
     try {
       final snapshot =
-          await FirebaseFirestore.instance.collection('theme_park').get();
+          await FirebaseFirestore.instance.collection('approved_theme_park').get();
       final parks = snapshot.docs
           .map((doc) => doc.data() as Map<String, dynamic>)
           .toList();

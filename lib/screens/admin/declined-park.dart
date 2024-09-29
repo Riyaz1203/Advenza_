@@ -1,16 +1,16 @@
-import 'package:advenza_project/widgets/approve-cards.dart';
+import 'package:advenza_project/widgets/declined-card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 
-class ApproveThemeScreen extends StatelessWidget {
-  const ApproveThemeScreen({super.key});
+class DeclinedPark extends StatelessWidget {
+  const DeclinedPark({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Approve Theme Park',
+        title: const Text('Declined Theme Parks',
             style: TextStyle(color: Colors.white)),
         backgroundColor: AppTheme.primaryColor,
         leading: IconButton(
@@ -21,15 +21,17 @@ class ApproveThemeScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: StreamBuilder<QuerySnapshot>(
-          stream:
-              FirebaseFirestore.instance.collection('theme_park').snapshots(),
+          stream: FirebaseFirestore.instance
+              .collection('declined-park') // Ensure collection name is correct
+              .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             }
 
             if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-              return const Center(child: Text('No theme parks available.'));
+              return const Center(
+                  child: Text('No declined theme parks available.'));
             }
 
             final themeParks = snapshot.data!.docs.map<Widget>((doc) {
@@ -41,15 +43,13 @@ class ApproveThemeScreen extends StatelessWidget {
               final String imageUrl =
                   data['image-link-1'] ?? 'https://via.placeholder.com/200';
 
-              // Pass the document ID and other fields to ApproveCards
-              return ApproveCards(
-                docId: doc.id, // Pass the document ID
+              // Pass the document fields to DeclinedParkCard
+              return DeclinedParkCard(
                 parkName: data['park_name'] ?? 'Unknown Park',
                 location: data['park-location'] ?? 'Unknown Location',
                 price: price,
                 imageUrl: imageUrl,
-                description:
-                    data['park_description'] ?? 'No Description', // Description
+                description: data['park_description'] ?? 'No Description',
                 rating: data['rating'] != null
                     ? double.tryParse(data['rating'].toString()) ?? 0.0
                     : 0.0, // Rating

@@ -1,13 +1,23 @@
 import 'package:advenza_project/screens/admin/add_notifiction.dart';
 import 'package:advenza_project/screens/admin/add_rides.dart';
 import 'package:advenza_project/screens/admin/add_theme_park.dart';
+import 'package:advenza_project/screens/admin/approved_theme.dart';
+import 'package:advenza_project/screens/admin/declined-park.dart';
 import 'package:advenza_project/screens/admin/view-rides.dart';
 import 'package:advenza_project/screens/admin/view-theme.dart';
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 
-class AdminHome extends StatelessWidget {
+class AdminHome extends StatefulWidget {
   const AdminHome({super.key});
+
+  @override
+  _AdminHomeState createState() => _AdminHomeState();
+}
+
+class _AdminHomeState extends State<AdminHome> {
+  bool showApprovedBadge = true; // Track notification for approved themes
+  bool showDeclinedBadge = true; // Track notification for declined themes
 
   @override
   Widget build(BuildContext context) {
@@ -26,37 +36,14 @@ class AdminHome extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 100,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: AppTheme.whiteColor,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text('Total Revenue', style: AppTheme.subHeadingStyle),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('\$52,000\nToday\'s Sales',
-                          style: AppTheme.headingStyle),
-                      Text('150\nNew Visitors', style: AppTheme.headingStyle),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            const SizedBox(height: 100),
             const SizedBox(height: 20),
             Text('Quick Access Links', style: AppTheme.subHeadingStyle),
             const SizedBox(height: 10),
             Expanded(
               child: Column(
                 children: [
+                  // Existing Buttons
                   ElevatedButton(
                     onPressed: () => Navigator.push(
                       context,
@@ -133,6 +120,107 @@ class AdminHome extends StatelessWidget {
                     child: const Center(
                       child: Text('Send Notification',
                           style: TextStyle(color: Colors.white)),
+                    ),
+                  ),
+                  const SizedBox(height: 20), // Gap before new buttons
+
+                  // New Buttons for Approved and Declined Themes
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        showApprovedBadge = false; // Hide badge when clicked
+                      });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ApprovedTheme()),
+                      );
+                    },
+                    child: Stack(
+                      alignment: Alignment.topRight, // Changed to topRight
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              showApprovedBadge =
+                                  false; // Hide badge when clicked
+                            });
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ApprovedTheme()),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppTheme.primaryColor,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                          ),
+                          child: const Center(
+                            child: Text('View Approved Themes',
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                        ),
+                        if (showApprovedBadge) // Show badge if true
+                          Container(
+                            margin: const EdgeInsets.only(
+                                top: 0, right: 8), // Position the circle
+                            width: 8,
+                            height: 8,
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        showDeclinedBadge = false; // Hide badge when clicked
+                      });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DeclinedPark()),
+                      );
+                    },
+                    child: Stack(
+                      alignment: Alignment.topRight, // Changed to topRight
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              showDeclinedBadge =
+                                  false; // Hide badge when clicked
+                            });
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DeclinedPark()),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppTheme.primaryColor,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                          ),
+                          child: const Center(
+                            child: Text('View Declined Themes',
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                        ),
+                        if (showDeclinedBadge) // Show badge if true
+                          Container(
+                            margin: const EdgeInsets.only(
+                                top: 0, right: 8), // Position the circle
+                            width: 8,
+                            height: 8,
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                      ],
                     ),
                   ),
                 ],
