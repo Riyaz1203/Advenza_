@@ -16,7 +16,6 @@ class _AddThemeParkScreenState extends State<AddThemeParkScreen> {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController _imageLink1Controller = TextEditingController();
-  final TextEditingController _imageLink2Controller = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _ratingController = TextEditingController();
 
@@ -31,7 +30,6 @@ class _AddThemeParkScreenState extends State<AddThemeParkScreen> {
       final description = _descriptionController.text.trim();
       final location = _locationController.text.trim();
       final imageLink1 = _imageLink1Controller.text.trim();
-      final imageLink2 = _imageLink2Controller.text.trim();
       final price = double.tryParse(_priceController.text.trim());
       final rating = double.tryParse(_ratingController.text.trim());
 
@@ -57,7 +55,6 @@ class _AddThemeParkScreenState extends State<AddThemeParkScreen> {
         'park_description': description,
         'park-location': location,
         'image-link-1': imageLink1,
-        'image-link-2': imageLink2,
         'price': price,
         'rating': rating,
       });
@@ -133,14 +130,6 @@ class _AddThemeParkScreenState extends State<AddThemeParkScreen> {
                 controller: _imageLink1Controller,
                 decoration: const InputDecoration(
                   labelText: 'Image Link 1',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 20),
-              TextField(
-                controller: _imageLink2Controller,
-                decoration: const InputDecoration(
-                  labelText: 'Image Link 2',
                   border: OutlineInputBorder(),
                 ),
               ),

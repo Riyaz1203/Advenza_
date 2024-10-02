@@ -6,7 +6,7 @@ import 'package:advenza_project/theme/theme.dart';
 class ConfirmTicketsScreen extends StatelessWidget {
   final Map<String, dynamic> bookingData;
 
-  const ConfirmTicketsScreen({super.key, required this.bookingData});
+  const ConfirmTicketsScreen({super.key, required this.bookingData, required Map<String, dynamic> bookingDetails});
 
   @override
   Widget build(BuildContext context) {

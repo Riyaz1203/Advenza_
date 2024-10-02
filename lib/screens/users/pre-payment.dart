@@ -1,4 +1,3 @@
-import 'dart:math'; // Import for random number generation
 import 'package:advenza_project/screens/users/payment-succesfull.dart';
 import 'package:flutter/material.dart';
 
@@ -7,36 +6,30 @@ class PaymentPage extends StatelessWidget {
 
   PaymentPage({super.key, required this.bookingData});
 
-  // Function to generate random ticket price
-  int _generateRandomPrice() {
-    final random = Random();
-    return random.nextInt(8001) + 8000; // Random price between 8000 and 16000
-  }
-
-  // Function to generate random flight charges
-  int _generateRandomFlightCharges() {
-    final random = Random();
-    return random.nextInt(50000) +
-        10000; // Random flight charges between 10000 and 60000
-  }
-
   @override
   Widget build(BuildContext context) {
-    // Generate random values
-    String dateOfVisit = bookingData['date_of_visit'] ??
-        "Monday ${Random().nextInt(30) + 1}th Aug 2024";
-    String ticketType = bookingData['ticket_type'] ??
-        (Random().nextBool() ? "Single-day Ticket" : "Two-day Ticket");
-    int ticketPrice = _generateRandomPrice();
-    int boardingPassCharge = _generateRandomFlightCharges();
+    // Retrieve ticket price from bookingData and convert it to an integer
+    final int ticketPrice =
+        (bookingData['price'] ?? 0.0).toInt(); // Convert double to int
+
+    // Parse the number of adults and children
+    int numberOfAdults =
+        int.tryParse(bookingData['number_of_adults'].toString()) ??
+            0; // Use toString() to handle any potential null values
+    int numberOfChildren =
+        int.tryParse(bookingData['number_of_children'].toString()) ?? 0;
+
+    // Calculate total ticket price
+    int totalTicketPrice = (numberOfAdults + numberOfChildren) * ticketPrice;
+
+    // Other charges
     int convenienceFees = 1650;
-    int total = boardingPassCharge +
-        convenienceFees +
-        (Random().nextBool() ? 10000 : 0); // Adding flight insurance randomly
+    int total = totalTicketPrice +
+        convenienceFees; // Total includes ticket price and convenience fees
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Ticket Price"),
+        title: const Text("Payment Summary"),
         leading: const Icon(Icons.arrow_back),
       ),
       body: Padding(
@@ -44,6 +37,51 @@ class PaymentPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Display total price at the top
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Row(
+                      children: [
+                        Icon(Icons.attach_money,
+                            size: 30), // Changed icon for money
+                        SizedBox(width: 10),
+                        Text(
+                          "Total Price",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    // Show detailed ticket price calculation
+                    Text(
+                      "Total Ticket Price: INR ₹${ticketPrice} x ($numberOfAdults + $numberOfChildren) = ₹$totalTicketPrice",
+                    ),
+                    const SizedBox(height: 8),
+                    Text("Convenience Fees: INR ₹$convenienceFees"),
+                    const SizedBox(height: 8),
+                    const Divider(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text("Grand Total:"),
+                        Text("₹$total",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            // Display ticket information
             Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -65,76 +103,10 @@ class PaymentPage extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 8),
-                    Text(dateOfVisit),
+                    Text("Number of Adults: $numberOfAdults"),
                     const SizedBox(height: 8),
-                    Text(ticketType),
+                    Text("Number of Children: $numberOfChildren"),
                     const SizedBox(height: 8),
-                    Text("INR ₹$ticketPrice"),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Flight Booking Charges",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                        Icon(Icons.info_outline),
-                      ],
-                    ),
-                    const Divider(),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Type:"),
-                        Text("Round Trip"),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("Boarding Pass:"),
-                        Text("₹$boardingPassCharge"),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Convenience Fees:"),
-                        Text("₹1650"),
-                      ],
-                    ),
-                    const Divider(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("Total:"),
-                        Text("₹$total"),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Checkbox(
-                            value: Random().nextBool(), onChanged: (value) {}),
-                        const Text("Flight Insurance +₹10,000"),
-                      ],
-                    ),
                   ],
                 ),
               ),
